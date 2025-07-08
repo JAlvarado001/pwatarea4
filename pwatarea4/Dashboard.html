@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Tareas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #dbeafe, #f0f4f8);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #1d4ed8;
+    }
+
+    p {
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 100px);
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #f3f4f6;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+          <h2>TAREA PRACTICA 4 - Grupo 8</h2>
+
+    <h2>Lista de Tareas</h2>
+    <p>Rol: <span style="color: #10b981;">Usuario</span></p>
+
+    <h3>Agregar nueva tarea</h3>
+    <div style="display: flex; gap: 10px;">
+      <input type="text" id="nuevaTarea" placeholder="Escribe una tarea...">
+      <button onclick="agregarTarea()">Agregar</button>
+    </div>
+
+    <h3>Tareas actuales</h3>
+    <ul id="listaTareas">
+      <li>
+        <span>Terminar ejercicio 1</span>
+        <button onclick="completarTarea(this)">Completar</button>
+      </li>
+      <li>
+        <span class="completed">Revisar correos</span>
+        <button disabled style="background: gray;">Completado</button>
+      </li>
+      <li>
+        <span>Leer documentación PHP</span>
+        <button onclick="completarTarea(this)">Completar</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    function agregarTarea() {
+      const input = document.getElementById("nuevaTarea");
+      const texto = input.value.trim();
+
+      if (texto === "") return;
+
+      const ul = document.getElementById("listaTareas");
+
+      const li = document.createElement("li");
+
+      const span = document.createElement("span");
+      span.textContent = texto;
+
+      const btn = document.createElement("button");
+      btn.textContent = "Completar";
+      btn.onclick = function () {
+        completarTarea(btn);
+      };
+
+      li.appendChild(span);
+      li.appendChild(btn);
+      ul.appendChild(li);
+
+      input.value = "";
+    }
+
+    function completarTarea(boton) {
+      const span = boton.parentElement.querySelector("span");
+      span.classList.add("completed");
+
+      boton.textContent = "Completado";
+      boton.disabled = true;
+      boton.style.background = "gray";
+    }
+  </script>
+</body>
+</html>
